@@ -1,10 +1,6 @@
 ### Dependancies
 Have all the chains running, `./sync_assets`
 
-You need a recently compiled `marketmaker` from jl777 branch in jl777/SuperNET repo.
-
-place `marketmaker` in mm_scale_test directory
-
 create the `passphrase` file in scripts sub directory
 
 `passphrase="your passphrase in quotes"`
@@ -17,13 +13,11 @@ use that and save it in `userpass` file
 
 `userpass=<user pass from marketmaker console output>`
 
-Run `./calcaddfirstrun` Get the Raddress from here and get someone to fund you to this address, you also need to `./assets-cli importprivkey "wif"` for the shown wif key. Also make sure you get the pubkey and put that in `pubkey.txt` in the `scaltest` dir.
+Run `./calcaddfirstrun` Get the Raddress from here and get someone to fund you to this address. 
 
-`./assets-cli stop` to stop all chains. Then Restart them with `./sync_assets`
+You also need to `./assets-cli importprivkey "wif"` for the shown wif key. 
 
 ### Instructions
-
-Start `marketmaker` using `./client` in `mm_scale_test` dir.
 
 Once marketmaker is running check you have balance on all chains with `./assets-cli getbalance`
 
@@ -37,6 +31,8 @@ Launch the marketmakers from the `mm_scale_test` dir using `./launchMM`
 
 Wait until all the marketmakers have loaded, this takes a little while. :) 
 
-Then launch `./TXblastMM.sh`
+Then launch `./TXblastMM100.sh`
 
 Watch and wait until the loops have finished.
+
+To start another set of loops just run `./generateUTXO` again then run `TXblastMM100.sh`

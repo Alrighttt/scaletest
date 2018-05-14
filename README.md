@@ -10,48 +10,24 @@ These steps are for installing on an empty server/vps. If you are using a testne
 **New step added here to install Cipi's network tweaks and increase open file limit**
 
 ```shell
-sudo apt-get install git
+sudo apt-get install git libcurl3
 git clone https://github.com/blackjok3rtt/scaletest.git
 cd scaletest
+./applytweaks.sh
+sudo reboot
 ./applytweaks.sh
 sudo reboot
 ./buildkomodo.sh
 ```
 
-When this is complete please refer to the section below for the role you are filling.
-
-### FOR ALL NODES
-
-You will need to create a pubkey.txt file and place it in the **scaletest** directory in the format.
-
+### For All Nodes
 ```shell
-pubkey=<yourpubkey>
-```
-
-To get a pubkey run `validateaddress` on an Raddress you have the private key for. (see [txtest-cli](#txtest-cli)) section below for an example of how to get a new address if you don't already have one you want to use.
-
-Then you will specify the range of chains you wish to work with
-
-```shell
-./setchains <startnum> <endnum>
-```
-
-Next you will perform the initial sync and run importprivkey on all the test assetchains (see [assets-cli](#assets-cli)) before continuing. 
-
-```shell
-./sync_assets
-./assets-cli importprivkey <your private key>
-```
-### For CPU Miners
-
-```shell
-./mineassets
-```
-
-### For Regular Nodes (Stats, Mining Pool etc)
-```shell
+./setchains x y
 ./sync_assets
 ```
+
+The first command sets the range of the chains you are using. Everything else will be generated from this. The default value is 4096, but we have only made 0 - 1023 chains for this test. The second command starts the chains and syncs them.
+
 
 ## assets-cli 
 
@@ -64,7 +40,7 @@ Examples:
 ./assets-cli stop
 ```
 
-### TXSCL-cli 
+## TXSCL-cli 
 
 Interacts with just the first of the test chains only.
 
@@ -74,6 +50,10 @@ Examples:
 ./TXSCL-cli validateaddress
 ./TXSCL-cli dumpprivkey
 ```
+
+# TX Blasters
+
+[**See README.md in mm_scale_test folder**](https://github.com/blackjok3rtt/scaletest/blob/4096/mm_scale_test/README.md)
 
 # Generating Chains
 

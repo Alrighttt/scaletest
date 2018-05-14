@@ -20,6 +20,6 @@ Radd+=$(grep -Po '"coinaddr":.*?[^\\]"' calcaddress.txt | awk -F':' '{print $2}'
 echo $Radd > Radd.txt
 
 #Generates 1 UTXO to the address created above for each chain and generates a new rpc port for marketmaker and saves the TXid in an array.
-./fundRadd2.sh 100
+./fundRadd2.sh 60
 
 #Use the list of txid's to call txblast API for each chain. 

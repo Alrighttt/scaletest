@@ -1,3 +1,3 @@
 source password
 source userpass
-curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"calcaddress\",\"passphrase\":\"$password\",\"coin\":\"TXSCL\"}"
+curl --url "http://127.0.0.1:7000" --data "{\"userpass\":\"$userpass\",\"method\":\"calcaddress\",\"passphrase\":\"$password\",\"coin\":\"TXSCL\"}"
