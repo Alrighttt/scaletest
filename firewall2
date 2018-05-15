@@ -1,0 +1,7 @@
+sudo ufw default allow outgoing
+sudo ufw default allow
+sudo ufw deny 7782
+sudo ufw deny 7793
+sudo ufw deny 7803
+sudo ufw deny 7813
+
