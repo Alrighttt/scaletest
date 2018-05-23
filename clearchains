@@ -1,0 +1,43 @@
+#!/bin/bash
+cd ~/scaletest
+
+chainstart=$1
+chainend=$2
+coinlist2file=coinlist2
+
+if [[ -z ${2+x} && ! -z ${1+x} ]]
+then 
+    echo
+    echo "setchains with no parameters will set you to work with all coins in the master list, otherwise you can set a range of chains to work with:"
+    echo
+    echo "Usage: ./setchains <chainfrom> <chainto>"
+    echo "Example: ./setchains 0 99"
+    echo
+    exit
+fi
+
+if [[ ! -z ${1+x} ]]
+then
+   count=chainstart
+else
+    count=0
+fi
+
+source coinlist
+
+rm coinlist2
+echo "coinlist2=(" > $coinlist2file
+
+while [[ (! -z ${2+x} && $count -le $chainend) || (-z ${2+x} && $count -le ${#coinlist[@]}) ]]
+do
+    all=${coinlist[count]}
+    name=${all%% *}
+    supply=`expr "$all" : '.* \(.*\)'`
+    if [ "$name" != "" ]
+    then
+        rm -rf ~/.komodo/$name
+    fi
+    count=$(( $count +1 ))
+done
+
+echo ")" >> $coinlist2file
