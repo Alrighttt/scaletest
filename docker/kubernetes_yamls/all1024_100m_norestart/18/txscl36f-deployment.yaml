@@ -1,0 +1,55 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert -f docker-compose-assets-test.yml
+    kompose.version: 1.1.0 (36652f6)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: txscl36f
+  name: txscl36f
+spec:
+  replicas: 1
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        io.kompose.service: txscl36f
+    spec:
+      containers:
+      - args:
+        - bash
+        - -c
+        - komodod -pubkey=037332211b0739afa3a854035616a7c94b9f0b179e088cca7fd6d7068be4ff56c7
+          -ac_name=TXSCL36f -ac_supply=77000000 -ac_cc=1 -ac_reward=100000000 -gen
+          -genproclimit=1 -addnode=195.201.167.37
+        env:
+        - name: ASSET_BIND
+          value: 127.0.0.1
+        - name: ASSET_NAME
+          value: TXSCL36f
+        - name: ASSET_RPC_ALLOWIP
+          value: 0.0.0.0/0
+        - name: ASSET_RPC_BIND
+          value: 0.0.0.0
+        - name: ASSET_RPC_PASSWORD
+          value: RPcp4ZZw0rD
+        - name: ASSET_RPC_PORT
+          value: "17938"
+        - name: ASSET_RPC_USER
+          value: kmdrpcus3R
+        - name: ASSET_RPC_WORKQUEUE
+          value: "64"
+        image: gcr.io/komodoscaling/kmdplatform_komodod_dev:latest
+        name: txscl36f
+        ports:
+        - containerPort: 17938
+        - containerPort: 17937
+        resources:
+          limits:
+            cpu: 100m
+          requests:
+            cpu: 100m
+      restartPolicy: Always
+status: {}

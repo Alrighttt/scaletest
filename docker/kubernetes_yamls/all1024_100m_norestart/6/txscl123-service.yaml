@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    kompose.cmd: kompose convert -f docker-compose-assets-test.yml
+    kompose.version: 1.1.0 (36652f6)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: txscl123
+  name: txscl123
+spec:
+  ports:
+  - name: "22637"
+    port: 22637
+    targetPort: 22637
+  - name: "22636"
+    port: 22636
+    targetPort: 22636
+  selector:
+    io.kompose.service: txscl123
+status:
+  loadBalancer: {}
