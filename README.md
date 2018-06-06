@@ -24,6 +24,8 @@ cd scaletest
 
 The first command sets the range of the chains you are using, we are notarizing only 64.
 
+**Make sure you create `pubkey.txt`!**
+
 ## assets-cli
 
 This file lets you interact with all the chains.
@@ -49,6 +51,8 @@ Examples:
 ## Notary Nodes
 For notary nodes, you need to do the usual things but a few steps are diffrent.
 You need to install komodo from libscott branch momo. The buildkomodo.sh script will do this for you if using momo branch of this repo.
+
+**Make sure you have launched the chains with the correct pubkey.txt**
 
 Install SuperNET form jl777 branch
 
