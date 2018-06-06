@@ -4,14 +4,9 @@ sudo apt-get install build-essential pkg-config git libc6-dev m4 g++-multilib au
 
 #Get repos
 cd ~
-git clone https://github.com/blackjok3rtt/scaletest.git -b 4096
-git clone https://github.com/jl777/SuperNET.git -b dev
-git clone https://github.com/jl777/komodo.git -b jl777
+git clone https://github.com/blackjok3rtt/scaletest.git -b momo
+git clone https://github.com/jl777/SuperNET.git -b jl777
 
 #copy m_notary_scale to iguana dir
 cd ~/scaletest
 cp m_notary_scale ~/SuperNET/iguana
-
-#build komodo from jl777 branch
-cd ~/komodo
-./zcutil/build.sh -j$(nproc)

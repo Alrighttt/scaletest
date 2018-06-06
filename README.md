@@ -1,35 +1,30 @@
-# KMD Scaling Test 
+# KMD Scaling Test
 
 This repo contains tools for easy setup to participate in the scaling test.
 
 Please sign up here: [Signup Sheet for Scaling Test](http://pad.supernet.org/Stress_Test_Signups)
 
 ## Install Steps
-These steps are for installing on an empty server/vps. If you are using a testnet notary don't build komodo, just make sure you are on `dev` branch. The scripts will be compatible with komodo in `~/komodo`. There is also a docker folder, from PatchKez that will generate all these assetchains into docker containers. If you want to do it this way wait for more information, I haven't tested these yet. 
+These steps are for installing on an empty server/vps. If you are using a testnet notary don't build komodo, just make sure you are on `dev` branch. The scripts will be compatible with komodo in `~/komodo`. There is also a docker folder, from PatchKez that will generate all these assetchains into docker containers. If you want to do it this way wait for more information, I haven't tested these yet.
 
-**New step added here to install Cipi's network tweaks and increase open file limit**
+**The script called buildkomodo.sh builds komodo from libscotts branch called momo if you need to install manually plese check the contents of that script**
 
 ```shell
 sudo apt-get install git libcurl3
-git clone https://github.com/blackjok3rtt/scaletest.git
+git clone https://github.com/blackjok3rtt/scaletest.git -b momo
 cd scaletest
-./applytweaks.sh
-sudo reboot
-./applytweaks.sh
-sudo reboot
 ./buildkomodo.sh
 ```
 
 ### For All Nodes
 ```shell
-./setchains x y
+./setchains 0 63
 ./sync_assets
 ```
 
-The first command sets the range of the chains you are using. Everything else will be generated from this. The default value is 4096, but we have only made 0 - 1023 chains for this test. The second command starts the chains and syncs them.
+The first command sets the range of the chains you are using, we are notarizing only 64.
 
-
-## assets-cli 
+## assets-cli
 
 This file lets you interact with all the chains.
 
@@ -40,7 +35,7 @@ Examples:
 ./assets-cli stop
 ```
 
-## TXSCL-cli 
+## TXSCL-cli
 
 Interacts with just the first of the test chains only.
 
@@ -51,47 +46,30 @@ Examples:
 ./TXSCL-cli dumpprivkey
 ```
 
-# TX Blasters
+## Notary Nodes
+For notary nodes, you need to do the usual things but a few steps are diffrent.
+You need to install komodo from libscott branch momo. The buildkomodo.sh script will do this for you if using momo branch of this repo.
 
-[**See README.md in mm_scale_test folder**](https://github.com/blackjok3rtt/scaletest/blob/4096/mm_scale_test/README.md)
+Install SuperNET form jl777 branch
 
-# Generating Chains
+`git clone https://github.com/jl777/SuperNET.git -b jl777`
 
-**FOR THE FIRST ROUND OF TESTS THESE ARE NOT REQUIRED OF TESTERS**
+You need the usual wp_7776 file, there is one in this repo that will source your passphrase from `passphrase.txt`
 
-101 test assetchains have been created and seeded and the needed files are in the repository you cloned.  Do not run these scripts or you might overwrite files needed in the first round of testing.
+`cp wp_7776 ~/SuperNET/iguana`
 
-The **genac** script creates the initial parameters new test chains. 
+`nano ~/SuperNET/iguana/passphrase.txt`
 
-Four files will need to be shared with the test organizer and/or committed to this repo
+copy your pubkey.txt to SuperNET dir
 
+`cp ~/komodo/src/pubkey.txt ~/SuperNET/iguana/`
 
-```shell
-./genacs <numchains> <chainname> <supply>
-```
+You will also need to: `cp m_notary_scale ~/SuperNET/iguana/`
 
-File | Description
----- | -----------
-acufwenable | UFW enable rules for generated ACs
-acufwdisable | Disable UFW rules for these ACs
-coinlist | Generated list of ACs needed for other scripts to run
-seedip | Your node IP address to be used as seed for other test nodes
+Once you have all 64 TXSCL chains running and synced. Import your private key:
 
-# Mining Pool Setup - ZNOMP
+`assets-cli importprivkey "private key"`
 
-For this setup, please ensure you have completed at least the steps for a Regular Node as it will need to retrieve info from the test chains config files.
+To call dPoW for all 64 chains do:
 
-```shell
-cd ~/scaletest/znomp/
-nano generate
-```
-
-Edit the line `walletaddress=` and change the address to your pool wallet address and save and exit
-
-```shell
-./generate
-```
-
-Now two new subdirectories will be created `coins` and `pool_configs` which should have all the test chains setup to add to the pool software.
-
-Stratum ports are set to start at 20777 and increment by 1 for each additional test chain.
+`./startdpow`
