@@ -25,7 +25,6 @@ fi
 
 source coinlist
 
-rm coinlist2
 echo "coinlist2=(" > $coinlist2file
 
 while [[ (! -z ${2+x} && $count -le $chainend) || (-z ${2+x} && $count -le ${#coinlist[@]}) ]]
