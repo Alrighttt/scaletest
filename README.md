@@ -141,3 +141,5 @@ Edit the line `walletaddress=` and change the address to your pool wallet addres
 Now two new subdirectories will be created `coins` and `pool_configs` which should have all the test chains setup to add to the pool software.
 
 Stratum ports are set to start at 20777 and increment by 1 for each additional test chain.
+
+.
